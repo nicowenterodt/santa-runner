@@ -124,8 +124,8 @@
         RESOURCE_TEMPLATE_ID: 'audio-resources',
         SPEED: 6,
         SPEED_DROP_COEFFICIENT: 3,
-        ARCADE_MODE_INITIAL_TOP_POSITION: 35,
-        ARCADE_MODE_TOP_POSITION_PERCENT: 0.1
+        ARCADE_MODE_INITIAL_TOP_POSITION: 100,
+        ARCADE_MODE_TOP_POSITION_PERCENT: 0
     };
 
 
@@ -429,7 +429,7 @@
             if (this.activated) {
                 this.setArcadeModeContainerScale();
             }
-            
+
             // Redraw the elements back onto the canvas.
             if (this.canvas) {
                 this.canvas.width = this.dimensions.WIDTH;
@@ -474,9 +474,9 @@
                     'from { width:' + Trex.config.WIDTH + 'px }' +
                     'to { width: ' + this.dimensions.WIDTH + 'px }' +
                     '}';
-                
-                // create a style sheet to put the keyframe rule in 
-                // and then place the style sheet in the html head    
+
+                // create a style sheet to put the keyframe rule in
+                // and then place the style sheet in the html head
                 var sheet = document.createElement('style');
                 sheet.innerHTML = keyframes;
                 document.head.appendChild(sheet);
@@ -509,6 +509,7 @@
             this.containerEl.style.webkitAnimation = '';
             this.playCount++;
 
+            document.querySelector('#helpstart').style.visibility = 'hidden';
             // Handle tabbing off the page. Pause the current game.
             document.addEventListener(Runner.events.VISIBILITY,
                 this.onVisibilityChange.bind(this));
@@ -638,16 +639,17 @@
             document.addEventListener(Runner.events.KEYDOWN, this);
             document.addEventListener(Runner.events.KEYUP, this);
 
+
             if (IS_MOBILE) {
                 // Mobile only touch devices.
                 this.touchController.addEventListener(Runner.events.TOUCHSTART, this);
                 this.touchController.addEventListener(Runner.events.TOUCHEND, this);
                 this.containerEl.addEventListener(Runner.events.TOUCHSTART, this);
-            } else {
-                // Mouse.
-                document.addEventListener(Runner.events.MOUSEDOWN, this);
-                document.addEventListener(Runner.events.MOUSEUP, this);
             }
+            // Mouse.
+            document.addEventListener(Runner.events.MOUSEDOWN, this);
+            document.addEventListener(Runner.events.MOUSEUP, this);
+
         },
 
         /**
@@ -678,8 +680,9 @@
             }
 
             if (e.target != this.detailsButton) {
+
                 if (!this.crashed && (Runner.keycodes.JUMP[e.keyCode] ||
-                    e.type == Runner.events.TOUCHSTART)) {
+                    e.type == Runner.events.TOUCHSTART || e.type == Runner.events.MOUSEDOWN)) {
                     if (!this.playing) {
                         this.loadSounds();
                         this.playing = true;
@@ -696,7 +699,9 @@
                 }
 
                 if (this.crashed && e.type == Runner.events.TOUCHSTART &&
+
                     e.currentTarget == this.containerEl) {
+
                     this.restart();
                 }
             }
@@ -730,10 +735,11 @@
                 this.tRex.speedDrop = false;
                 this.tRex.setDuck(false);
             } else if (this.crashed) {
+
                 // Check that enough time has elapsed before allowing jump key to restart.
                 var deltaTime = getTimeStamp() - this.time;
 
-                if (Runner.keycodes.RESTART[keyCode] || this.isLeftClickOnCanvas(e) ||
+                if (e.type == Runner.events.MOUSEUP || Runner.keycodes.RESTART[keyCode] || this.isLeftClickOnCanvas(e) ||
                     (deltaTime >= this.config.GAMEOVER_CLEAR_TIME &&
                         Runner.keycodes.JUMP[keyCode])) {
                     this.restart();
@@ -780,7 +786,7 @@
         gameOver: function () {
             this.playSound(this.soundFx.HIT);
             vibrate(200);
-
+            document.querySelector('#gameover').style.visibility = 'visible';
             this.stop();
             this.crashed = true;
             this.distanceMeter.acheivement = false;
@@ -824,6 +830,7 @@
         },
 
         restart: function () {
+            document.querySelector('#gameover').style.visibility = 'hidden'
             if (!this.raqId) {
                 this.playCount++;
                 this.runningTime = 0;
@@ -842,7 +849,7 @@
                 this.update();
             }
         },
-        
+
         /**
          * Hides offline messaging for a fullscreen game only experience.
          */
@@ -860,18 +867,13 @@
             const scaleWidth = window.innerWidth / this.dimensions.WIDTH;
             const scale = Math.max(1, Math.min(scaleHeight, scaleWidth));
             const scaledCanvasHeight = this.dimensions.HEIGHT * scale;
-            // Positions the game container at 10% of the available vertical window
-            // height minus the game container height.
-            const translateY = Math.ceil(Math.max(0, (windowHeight - scaledCanvasHeight -
-                                                      Runner.config.ARCADE_MODE_INITIAL_TOP_POSITION) *
-                                                  Runner.config.ARCADE_MODE_TOP_POSITION_PERCENT)) *
-                  window.devicePixelRatio;
+            const translateY = (windowHeight - scaledCanvasHeight - Runner.config.ARCADE_MODE_INITIAL_TOP_POSITION);
 
             const cssScale = scale;
             this.containerEl.style.transform =
-                'scale(' + cssScale + ') translateY(' + translateY + 'px)';
+                'scale(' + cssScale + ') translateY(' + translateY / scale + 'px)';
         },
-        
+
         /**
          * Pause the game if the tab is not in focus.
          */

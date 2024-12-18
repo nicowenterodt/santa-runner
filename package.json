@@ -1,0 +1,19 @@
+{
+  "name": "santa-runner",
+  "version": "1.0.0",
+  "description": "The Santa Runner",
+  "repository": "git@github.com:nicowenterodt/santa-runner.git",
+  "author": "Nico Wenterodt <nico@niwen.de>",
+  "license": "BSD-3",
+  "dependencies": {
+    "confetti-js": "^0.0.18"
+  },
+  "devDependencies": {
+    "parcel": "^2.13.3",
+    "svgo": "^3"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  }
+}
