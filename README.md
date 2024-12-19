@@ -6,15 +6,17 @@
 🎄 When the world goes offline, you know what to do,
 But this time it’s Santa, with a challenge for you!
 Through forests of snow and trees standing tall,
-Leap over the obstacles, don’t let him fall!
+Leap over the snowman, don’t let him fall!
 
 🎁 Each jump keeps the magic of Christmas alive,
-How far can you go? How long can you thrive?
-With snowmen to dodge and icy paths to outsmart,
-It’s a holiday race—so let’s make a start!
+How far can you go - How long can you thrive?
+With snowmen to dodge and reindeers neer,
+It’s a holiday race—so let’s give a cheer!
 
-🎅 [Tap to begin](https://nicowenterodt.github.io/santa-runner/), and let the joy run free,
-Santa is counting on you—you’ll see!
+🎅 [Tap to start](https://nicowenterodt.github.io/santa-runner/) and spread the cheer,
+Santa’s journey is finally here!
+Leap and dodge, the goal is clear,
+Keep him running—Christmas is near! 🎅✨"
 
 
 [![START PLAYING NOW](https://img.shields.io/badge/START%20PLAYING-blue)](https://nicowenterodt.github.io/santa-runner/)
