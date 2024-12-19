@@ -6,8 +6,7 @@
   "author": "Nico Wenterodt <nico@niwen.de>",
   "license": "BSD-3",
   "dependencies": {
-    "confetti-js": "^0.0.18",
-    "parcel-plugin-ogimage": "^1.2.0"
+    "confetti-js": "^0.0.18"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "2.13.3",
@@ -17,6 +16,6 @@
   },
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --public-url ./"
+    "build": "parcel build index.html --public-url https://nicowenterodt.github.io/santa-runner"
   }
 }
