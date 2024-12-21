@@ -16,6 +16,6 @@
   },
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --public-url https://nicowenterodt.github.io/santa-runner"
+    "build": "parcel build index.html --public-url https://www.santa-runner.com"
   }
 }
